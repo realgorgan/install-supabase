@@ -21,4 +21,6 @@ This script sets up a Supabase environment on an Ubuntu 22.04 system. It also in
 
 ### Running the Script
 
-```wget https://cdn.jordanlindsay.com.au/supabase_install.sh/ && chmod +x supabase_install.sh && ./supabase_install.sh```
+```
+wget https://cdn.jordanlindsay.com.au/supabase_install.sh/ && chmod +x supabase_install.sh && ./supabase_install.sh
+```
