@@ -10,6 +10,7 @@ This script sets up a Supabase environment on your Linux server. It also include
 |                  | 24.04   | :white_check_mark:
 | Debian           | 11      | :white_check_mark:
 |                  | 12      | :white_check_mark:
+| CentOS           | 9       | :white_check_mark:
 
 ## Features
 
