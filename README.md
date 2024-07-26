@@ -8,7 +8,7 @@ This script sets up a Supabase environment on your Linux server. It also include
 | Ubuntu           | 20.04   | :red_circle:
 |                  | 22.04   | :white_check_mark: 
 |                  | 24.04   | :white_check_mark:
-| Debian           | 11      | :red_circle: 
+| Debian           | 11      | :white_check_mark:
 |                  | 12      | :white_check_mark:
 
 ## Features
