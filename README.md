@@ -10,7 +10,7 @@ This script sets up a Supabase environment on an Ubuntu 22.04 system. It also in
 |                  | 18.04   | :red_circle:   
 |                  | 20.04   | :red_circle: 
 |                  | 22.04   | :white_check_mark: 
-|                  | 24.04   | :red_circle: 
+|                  | 24.04   | :white_check_mark:
 | Debian           | 8       | :red_circle:   
 |                  | 9       | :red_circle:    
 |                  | 10      | :red_circle: 
