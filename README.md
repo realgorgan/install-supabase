@@ -28,6 +28,6 @@ This script sets up a Supabase environment on your Linux server. It also include
 ### Running the Script
 
 ```
-apt install wget && wget [https://cdn.jordanlindsay.com.au/supabase_install.sh/](https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/supabase_install.sh) && chmod +x supabase_install.sh && ./supabase_install.sh
+apt install wget && wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/supabase_install.sh && chmod +x supabase_install.sh && ./supabase_install.sh
 ```
 Copy and paste this into your system and follow the prompts.
