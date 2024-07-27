@@ -76,15 +76,12 @@ install_menu() {
     sleep 2
     . /etc/os-release
 
-    echo "Detected OS ID: $ID"  # Debug output
-
     echo "${ID^} Installation Menu:"
     echo "1. Install Supabase"
     echo "2. Install CloudFlare Tunnel"
     echo "3. Install Tailscale"
     echo "4. Exit"
     read -p "Enter your choice: " choice
-    echo "You entered: $choice"  # Debug output
 
     case $choice in
         1) install_supabase ;;
