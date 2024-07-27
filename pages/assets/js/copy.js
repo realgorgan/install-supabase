@@ -21,7 +21,7 @@ function copyToClipboard() {
     //update icon
     var buttonIcon = document.getElementById("btn-icon");
     
-    buttonIcon.src = "check.webp";
+    buttonIcon.src = "./assets/img/check.webp";
 
     setTimeout(() => {
 
