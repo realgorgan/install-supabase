@@ -21,7 +21,7 @@ function copyToClipboard() {
     //update icon
     var buttonIcon = document.getElementById("btn-icon");
     
-    buttonIcon.src = "./assets/img/check.webp";
+    buttonIcon.src = "https://cdn.getminted.cc/check.png";
 
     setTimeout(() => {
 
