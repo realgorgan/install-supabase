@@ -11,7 +11,7 @@ This script sets up a Supabase environment on your Linux server. It also include
 | Debian           | 11      | :white_check_mark:
 |                  | 12      | :white_check_mark:
 | CentOS           | 9       | :white_check_mark:
-| AlmaLinux        | 8       | :red_circle:
+| AlmaLinux        | 8       | :white_check_mark:
 |                  | 9       | :red_circle:
 
 ## Features
