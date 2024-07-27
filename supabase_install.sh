@@ -1,111 +1,30 @@
 #!/bin/bash
 
-# Function to display menu for Debian-based systems
-debian_menu() {
-    echo "Debian Supabase Installation Menu:"
+# Function to display menu and handle installations
+install_menu() {
+    local os_name="$1"
+    local install_script_suffix="$2"
+    
+    echo "${os_name} Supabase Installation Menu:"
     echo "1. Install Supabase"
     echo "2. Install CloudFlare Tunnel"
     echo "3. Install Tailscale"
     echo "4. Exit"
     read -p "Enter your choice: " choice
-    case $choice in
-        1)
-            apt install -y wget && wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/supabase_install_debian.sh && chmod +x supabase_install_debian.sh && ./supabase_install_debian.sh
-            ;;
-        2)
-            apt install -y wget && wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/cloudflare_tunnel_install.sh && chmod +x cloudflare_tunnel_install.sh && ./cloudflare_tunnel_install.sh
-            ;;
-        3)
-            apt install -y wget && wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/tailscale_install.sh && chmod +x tailscale_install.sh && ./tailscale_install.sh
-            ;;
-        4)
-            exit 0
-            ;;
-        *)
-            echo "Invalid choice"
-            ;;
-    esac
-}
 
-# Function to display menu for Ubuntu systems
-ubuntu_menu() {
-    echo "Ubuntu Supabase Installation Menu:"
-    echo "1. Install Supabase"
-    echo "2. Install CloudFlare Tunnel"
-    echo "3. Install Tailscale"
-    echo "4. Exit"
-    read -p "Enter your choice: " choice
     case $choice in
-        1)
-            apt install -y wget && wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/supabase_install_ubuntu.sh && chmod +x supabase_install_ubuntu.sh && ./supabase_install_ubuntu.sh
-            ;;
-        2)
-            apt install -y wget && wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/cloudflare_tunnel_install.sh && chmod +x cloudflare_tunnel_install.sh && ./cloudflare_tunnel_install.sh
-            ;;
-        3)
-            apt install -y wget && wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/tailscale_install.sh && chmod +x tailscale_install.sh && ./tailscale_install.sh
-            ;;
-        4)
-            exit 0
-            ;;
-        *)
-            echo "Invalid choice"
-            ;;
+        1) script_name="supabase_install_${install_script_suffix}.sh" ;;
+        2) script_name="cloudflare_tunnel_install.sh" ;;
+        3) script_name="tailscale_install.sh" ;;
+        4) exit 0 ;;
+        *) echo "Invalid choice"; return ;;
     esac
-}
 
-# Function to display menu for CentOS systems
-centos_menu() {
-    echo "CentOS Supabase Installation Menu:"
-    echo "1. Install Supabase"
-    echo "2. Install CloudFlare Tunnel"
-    echo "3. Install Tailscale"
-    echo "4. Exit"
-    read -p "Enter your choice: " choice
-    case $choice in
-        1)
-            wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/supabase_install_centos.sh && chmod +x supabase_install_centos.sh && ./supabase_install_centos.sh
-            ;;
-        2)
-            wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/cloudflare_tunnel_install.sh && chmod +x cloudflare_tunnel_install.sh && ./cloudflare_tunnel_install.sh
-            ;;
-        3)
-            wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/tailscale_install.sh && chmod +x tailscale_install.sh && ./tailscale_install.sh
-            ;;
-        4)
-            exit 0
-            ;;
-        *)
-            echo "Invalid choice"
-            ;;
-    esac
-}
-
-# Function to display menu for CentOS systems
-almalinux_menu() {
-    echo "AlmaLinux Supabase Installation Menu:"
-    echo "1. Install Supabase"
-    echo "2. Install CloudFlare Tunnel"
-    echo "3. Install Tailscale"
-    echo "4. Exit"
-    read -p "Enter your choice: " choice
-    case $choice in
-        1)
-            wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/supabase_install_almalinux.sh && chmod +x supabase_install_almalinux.sh && ./supabase_install_almalinux.sh
-            ;;
-        2)
-            wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/cloudflare_tunnel_install.sh && chmod +x cloudflare_tunnel_install.sh && ./cloudflare_tunnel_install.sh
-            ;;
-        3)
-            wget https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/tailscale_install.sh && chmod +x tailscale_install.sh && ./tailscale_install.sh
-            ;;
-        4)
-            exit 0
-            ;;
-        *)
-            echo "Invalid choice"
-            ;;
-    esac
+    if [ "$install_script_suffix" ]; then
+        wget "https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/$script_name" && chmod +x "$script_name" && ./"$script_name"
+    else
+        apt install -y wget && wget "https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/$script_name" && chmod +x "$script_name" && ./"$script_name"
+    fi
 }
 
 # Detect the operating system
@@ -113,15 +32,10 @@ echo "Detecting operating system..."
 sleep 4
 . /etc/os-release
 
-if [ "$ID" = "debian" ]; then
-    debian_menu
-elif [ "$ID" = "ubuntu" ]; then
-    ubuntu_menu
-elif [ "$ID" = "centos" ]; then
-    centos_menu
-elif [ "$ID" = "almalinux" ]; then
-    almalinux_menu
-else
-    echo "Unsupported operating system"
-    exit 1
-fi
+case "$ID" in
+    debian) install_menu "Debian" "" ;;
+    ubuntu) install_menu "Ubuntu" "" ;;
+    centos) install_menu "CentOS" "centos" ;;
+    almalinux) install_menu "AlmaLinux" "almalinux" ;;
+    *) echo "Unsupported operating system"; exit 1 ;;
+esac
