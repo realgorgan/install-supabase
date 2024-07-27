@@ -13,6 +13,9 @@ This script sets up a Supabase environment on your Linux server. It also include
 | CentOS           | 9       | :white_check_mark:
 | AlmaLinux        | 8       | :white_check_mark:
 |                  | 9       | :white_check_mark:
+| Fedora           | 40      | :white_check_mark:
+| Kali Linux       | 2024.2  | :white_check_mark:
+| Manjaro          | 24      | :grey_question:
 
 ## Features
 
@@ -25,6 +28,6 @@ This script sets up a Supabase environment on your Linux server. It also include
 ### Running the Script
 
 ```
-wget https://realgorgan.github.io/install-supabase/install_supabase.sh && chmod +x supabase_install.sh && ./supabase_install.sh
+sudo bash -c "$(curl -sSL https://raw.githubusercontent.com/EshayDev/install-supabase/main/install.sh)"
 ```
 Copy and paste this into your system and follow the prompts.
