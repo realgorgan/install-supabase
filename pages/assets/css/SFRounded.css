@@ -1,0 +1,26 @@
+@font-face {
+	font-family: 'SFRounded';
+	src: url(../../assets/fonts/SFRounded-3b66cbf075e0cefb1c6b94945cbcde3a.woff2) format('woff2'),
+	url(../../assets/fonts/SFRounded-8b078ae4714074a236bc78ee8d155f1a.woff) format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'SFRounded';
+	src: url(../../assets/fonts/SFRounded-9057496b726959bf1fa7f0e7432bcd69.woff2) format('woff2'),
+	url(../../assets/fonts/SFRounded-6416aee5cda38714b1cc95fc27d50b4f.woff) format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'SFRounded';
+	src: url(../../assets/fonts/SFRounded-4cacf8a0a8fb946e32204f37d8c704b7.woff2) format('woff2'),
+	url(../../assets/fonts/SFRounded-f854b23bb70926c7a6abdbba6b71f8db.woff) format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
