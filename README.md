@@ -5,8 +5,8 @@ This script sets up a Supabase environment on your Linux server. It also include
 ## Supported Operating Systems
 | Operating System | Version | Supported          
 | ---------------- | ------- | ------------------ 
-| Ubuntu           | 20.04   | :red_circle:
-|                  | 22.04   | :white_check_mark: 
+| Ubuntu           | 20.04   | :white_check_mark:
+|                  | 22.04   | :white_check_mark:
 |                  | 24.04   | :white_check_mark:
 | Debian           | 11      | :white_check_mark:
 |                  | 12      | :white_check_mark:
