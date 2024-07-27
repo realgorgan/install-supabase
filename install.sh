@@ -28,11 +28,6 @@ install_docker() {
             sudo systemctl start docker
             sudo systemctl enable docker
             ;;
-        manjaro)
-            sudo pacman -Syu --noconfirm git wget curl docker docker-compose
-            sudo systemctl start docker
-            sudo systemctl enable docker
-            ;;
         *)
             echo "Unsupported operating system for Docker installation."
             exit 1
