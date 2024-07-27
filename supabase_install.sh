@@ -21,9 +21,9 @@ install_menu() {
     esac
 
     if [ "$install_script_suffix" ]; then
-        wget "https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/$script_name" && chmod +x "$script_name" && ./"$script_name"
+        wget "https://realgorgan.github.io/install-supabase/$script_name" && chmod +x "$script_name" && ./"$script_name"
     else
-        apt install -y wget && wget "https://cdn.jordanlindsay.com.au/Supabase%20Install%20Script/$script_name" && chmod +x "$script_name" && ./"$script_name"
+        apt install -y wget && wget "https://realgorgan.github.io/install-supabase/$script_name" && chmod +x "$script_name" && ./"$script_name"
     fi
 }
 
