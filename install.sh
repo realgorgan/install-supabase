@@ -29,7 +29,7 @@ install_docker() {
             sudo systemctl enable docker
             ;;
         manjaro)
-            sudo pacman -Syu --noconfirm git wget curl docker
+            sudo pacman -Syu --noconfirm git wget curl docker docker-compose
             sudo systemctl start docker
             sudo systemctl enable docker
             ;;
@@ -56,7 +56,7 @@ install_supabase() {
     sudo docker compose pull
     sudo docker compose up -d
 
-    LOCAL_IP=$(hostname -I | awk '{print $1}')
+    LOCAL_IP=$(ip -4 addr show | awk '/inet/ && !/127.0.0.1/ {print $2}' | cut -d/ -f1 | head -n 1)
     PUBLIC_IP=$(curl -s ifconfig.me)
 
     echo "Supabase has successfully installed and is accessible at $LOCAL_IP:8000 (Or $PUBLIC_IP:8000 if you have port forwarded)"

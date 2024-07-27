@@ -13,7 +13,7 @@ This script sets up a Supabase environment on your Linux server. It also include
 | CentOS           | 9       | :white_check_mark:
 | AlmaLinux        | 8       | :white_check_mark:
 |                  | 9       | :white_check_mark:
-| Fedora           | 40      | :grey_question:
+| Fedora           | 40      | :white_check_mark:
 | Kali Linux       | 2024.2  | :grey_question:
 | Manjaro          | 24      | :grey_question:
 
