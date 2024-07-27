@@ -15,14 +15,14 @@ install_docker() {
             ;;
         centos|almalinux)
             sudo yum update -y
-            sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+            sudo yum install -y git yum-utils device-mapper-persistent-data lvm2
             sudo yum-config-manager -y --add-repo https://download.docker.com/linux/centos/docker-ce.repo
             sudo yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             sudo systemctl start docker
             sudo systemctl enable docker
             ;;
         fedora)
-            sudo dnf install -y dnf-plugins-core
+            sudo dnf install -y git dnf-plugins-core
             sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
             sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             sudo systemctl start docker
