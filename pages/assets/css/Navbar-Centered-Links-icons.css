@@ -71,3 +71,15 @@
   }
 }
 
+@media (min-width: 300px) {
+  #hero-subheader {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  #hero-subheader {
+    font-size: 30px;
+  }
+}
+
