@@ -9,7 +9,9 @@ install_docker() {
             sudo apt install -y git wget ca-certificates curl
             sudo install -m 0755 -d /etc/apt/keyrings
             curl -fsSL https://download.docker.com/linux/debian/gpg | sudo tee /etc/apt/keyrings/docker.asc > /dev/null
-            echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc > /dev/null
+            sudo chmod a+r /etc/apt/keyrings/docker.asc
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
             sudo apt-get update
             sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             ;;
@@ -35,18 +37,23 @@ install_docker() {
     esac
 }
 
-# Function to install Supabase
-install_supabase() {
-    if command -v supabase >/dev/null 2>&1; then
-        echo "Supabase is already installed. Exiting..."
-        exit 0
-    fi
+# Function to install LibreChat
+install_librechat() {
 
-    echo "Installing Supabase..."
+    echo "Installing LibreChat..."
     install_docker
 
-    git clone --depth 1 https://github.com/supabase/supabase
-    cd supabase/docker || exit
+    ## Install MongoDB
+    export MONGODB_VERSION=6.0-ubi8
+    docker run --name mongodb -d -p 27017:27017 mongodb/mongodb-community-server:$MONGODB_VERSION
+
+    echo "Giving MongoDB time to initialize..."
+    sleep 10
+
+    ## Actually install LibreChat
+
+    git clone https://github.com/danny-avila/LibreChat.git
+    cd LibreChat/docker || exit
     cp .env.example .env
     sudo docker compose pull
     sudo docker compose up -d
@@ -54,10 +61,7 @@ install_supabase() {
     LOCAL_IP=$(ip -4 addr show | awk '/inet/ && !/127.0.0.1/ {print $2}' | cut -d/ -f1 | head -n 1)
     PUBLIC_IP=$(curl -s ifconfig.me)
 
-    echo "Supabase has successfully installed and is accessible at $LOCAL_IP:8000 (Or $PUBLIC_IP:8000 if you have port forwarded)"
-    echo "Username: supabase"
-    echo "Password: this_password_is_insecure_and_should_be_updated"
-    echo "As the password suggests, please change it to ensure security of your database"
+    echo "LibreChat has successfully installed and is accessible at $LOCAL_IP:3080 (Or $PUBLIC_IP:3080 if you have port forwarded)"
 }
 
 # Function to install CloudFlare Tunnel
@@ -84,14 +88,14 @@ install_menu() {
     . /etc/os-release
 
     echo "${ID^} Installation Menu:"
-    echo "1. Install Supabase"
+    echo "1. Install LibreChat"
     echo "2. Install CloudFlare Tunnel"
     echo "3. Install Tailscale"
     echo "4. Exit"
     read -p "Enter your choice: " choice
 
     case $choice in
-        1) install_supabase ;;
+        1) install_librechat ;;
         2) install_cloudflare_tunnel ;;
         3) install_tailscale ;;
         4) exit 0 ;;
