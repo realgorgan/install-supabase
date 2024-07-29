@@ -37,23 +37,18 @@ install_docker() {
     esac
 }
 
-# Function to install LibreChat
-install_librechat() {
+# Function to install Supabase
+install_supabase() {
+    if command -v supabase >/dev/null 2>&1; then
+        echo "Supabase is already installed. Exiting..."
+        exit 0
+    fi
 
-    echo "Installing LibreChat..."
+    echo "Installing Supabase..."
     install_docker
 
-    ## Install MongoDB
-    export MONGODB_VERSION=6.0-ubi8
-    docker run --name mongodb -d -p 27017:27017 mongodb/mongodb-community-server:$MONGODB_VERSION
-
-    echo "Giving MongoDB time to initialize..."
-    sleep 10
-
-    ## Actually install LibreChat
-
-    git clone https://github.com/danny-avila/LibreChat.git
-    cd LibreChat/docker || exit
+    git clone --depth 1 https://github.com/supabase/supabase
+    cd supabase/docker || exit
     cp .env.example .env
     sudo docker compose pull
     sudo docker compose up -d
@@ -61,7 +56,10 @@ install_librechat() {
     LOCAL_IP=$(ip -4 addr show | awk '/inet/ && !/127.0.0.1/ {print $2}' | cut -d/ -f1 | head -n 1)
     PUBLIC_IP=$(curl -s ifconfig.me)
 
-    echo "LibreChat has successfully installed and is accessible at $LOCAL_IP:3080 (Or $PUBLIC_IP:3080 if you have port forwarded)"
+    echo "Supabase has successfully installed and is accessible at $LOCAL_IP:8000 (Or $PUBLIC_IP:8000 if you have port forwarded)"
+    echo "Username: supabase"
+    echo "Password: this_password_is_insecure_and_should_be_updated"
+    echo "As the password suggests, please change it to ensure security of your database"
 }
 
 # Function to install CloudFlare Tunnel
@@ -88,14 +86,14 @@ install_menu() {
     . /etc/os-release
 
     echo "${ID^} Installation Menu:"
-    echo "1. Install LibreChat"
+    echo "1. Install Supabase"
     echo "2. Install CloudFlare Tunnel"
     echo "3. Install Tailscale"
     echo "4. Exit"
     read -p "Enter your choice: " choice
 
     case $choice in
-        1) install_librechat ;;
+        1) install_supabase ;;
         2) install_cloudflare_tunnel ;;
         3) install_tailscale ;;
         4) exit 0 ;;
