@@ -48,6 +48,8 @@ install_supabase() {
     install_docker
 
     git clone --depth 1 https://github.com/supabase/supabase
+    git config --global http.postBuffer 1048576000
+    git config --global https.postBuffer 1048576000
     cd supabase/docker || exit
     cp .env.example .env
     sudo docker compose pull
