@@ -1,6 +1,6 @@
 # Supabase Install Script
 
-## You can now access our website at https://supabase.click
+## You can now access our website at https://supabase.sh
 
 This script sets up a Supabase environment on your Linux server. It also includes options for setting up a CloudFlare Tunnel and Tailscale for external access if you don't want to port forward.
 
