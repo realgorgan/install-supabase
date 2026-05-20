@@ -1,7 +1,5 @@
 # Supabase Install Script
 
-## You can now access our website at https://supabase.sh
-
 This script sets up a Supabase environment on your Linux server. It also includes options for setting up a CloudFlare Tunnel and Tailscale for external access if you don't want to port forward.
 
 ## Supported Operating Systems
@@ -30,6 +28,6 @@ This script sets up a Supabase environment on your Linux server. It also include
 ### Running the Script
 
 ```
-sudo bash -c "$(curl -sSL https://supabase.click/install.sh)"
+sudo bash -c "$(curl -sSL https://raw.githubusercontent.com/realgorgan/install-supabase/refs/heads/main/install.sh)"
 ```
 Copy and paste this into your system and follow the prompts.
