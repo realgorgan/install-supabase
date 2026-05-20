@@ -6,7 +6,7 @@ install_docker() {
     case "$ID" in
         ubuntu|debian|kali)
             sudo apt update && sudo apt upgrade -y
-            sudo apt install -y git wget ca-certificates curl
+            sudo apt install -y git wget ca-certificates curl openssl
             sudo install -m 0755 -d /etc/apt/keyrings
             curl -fsSL https://download.docker.com/linux/debian/gpg | sudo tee /etc/apt/keyrings/docker.asc > /dev/null
             curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc > /dev/null
@@ -17,14 +17,14 @@ install_docker() {
             ;;
         centos|almalinux)
             sudo yum update -y
-            sudo yum install -y git yum-utils device-mapper-persistent-data lvm2
+            sudo yum install -y git yum-utils device-mapper-persistent-data lvm2 openssl
             sudo yum-config-manager -y --add-repo https://download.docker.com/linux/centos/docker-ce.repo
             sudo yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             sudo systemctl start docker
             sudo systemctl enable docker
             ;;
         fedora)
-            sudo dnf install -y git dnf-plugins-core
+            sudo dnf install -y git dnf-plugins-core openssl
             sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
             sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             sudo systemctl start docker
@@ -52,6 +52,13 @@ install_supabase() {
     git config --global https.postBuffer 1048576000
     cd supabase/docker || exit
     cp .env.example .env
+
+    echo "Generating Supabase secrets..."
+    keys_output=$(sh ./utils/generate-keys.sh --update-env)
+
+    dashboard_password=$(printf '%s\n' "$keys_output" | awk -F= '/^DASHBOARD_PASSWORD=/{print $2}')
+    postgres_password=$(printf '%s\n' "$keys_output" | awk -F= '/^POSTGRES_PASSWORD=/{print $2}')
+
     sudo docker compose pull
     sudo docker compose up -d
 
@@ -60,8 +67,21 @@ install_supabase() {
 
     echo "Supabase has successfully installed and is accessible at $LOCAL_IP:8000 (Or $PUBLIC_IP:8000 if you have port forwarded)"
     echo "Username: supabase"
-    echo "Password: this_password_is_insecure_and_should_be_updated"
-    echo "As the password suggests, please change it to ensure security of your database"
+    if [ -n "$dashboard_password" ]; then
+        echo "Dashboard password: $dashboard_password"
+    else
+        echo "Dashboard password: (see .env in supabase/docker)"
+    fi
+    if [ -n "$postgres_password" ]; then
+        echo "Postgres password: $postgres_password"
+    else
+        echo "Postgres password: (see .env in supabase/docker)"
+    fi
+    echo ""
+    echo "Generated Supabase secrets:"
+    echo "----------------------------------------"
+    printf '%s\n' "$keys_output"
+    echo "----------------------------------------"
 }
 
 # Function to install CloudFlare Tunnel
